@@ -1,0 +1,11 @@
+<%- include ('partials/header') %>
+
+<div class="card-grid">
+    <% if (content && content.data) { %>
+        <% content.data.forEach(function(item) { %>
+            <%- include('partials/_cards', { item: item }); %>
+        <% }); %>
+    <% } %>
+</div>
+
+<%- include('partials/footer'); %>

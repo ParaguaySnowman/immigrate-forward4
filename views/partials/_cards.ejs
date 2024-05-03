@@ -1,0 +1,32 @@
+<% if (item.attributes.media_type === 'video') { %> 
+    <div class="card"> 
+        <div class="youtube-embed-container"> 
+            <% if (item.attributes.video) { %> 
+            <iframe width="560" height="315" 
+                src="https://www.youtube.com/embed/<%= item.attributes.video %>" 
+                title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+            <% } %>
+        </div>
+        <h2><%= item.attributes.title %></h2> 
+    </div>
+    <% } %>
+    
+    <% if (item.attributes.media_type === 'document') { %> 
+        <div class="card"> 
+            <% if (item.attributes.thumbnail && item.attributes.document) { %> 
+            <% var imageURL = 'http://localhost:1337' + item.attributes.thumbnail.data.attributes.url; %>
+            <% var documentURL = 'http://localhost:1337' + item.attributes.document.data.attributes.url; %>
+            <img class="card-img" src="<%= imageURL %>" alt="<%= item.attributes.title %>"> 
+            <% } %>
+            <h2><%= item.attributes.title %></h2> 
+            <% if (item.attributes.document) { %> 
+                <button class="view-document-btn" onclick="window.open('<%= documentURL %>', '_blank')">
+                View Document
+                </button>
+            <% } %> 
+        </div>
+    <% } %> 
+    

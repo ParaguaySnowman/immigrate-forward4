@@ -1,0 +1,59 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cards",
+  "info": {
+    "singularName": "card",
+    "pluralName": "cards",
+    "displayName": "card",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "asylum",
+        "citizenship",
+        "green_card",
+        "petitions",
+        "sponsorship",
+        "visas",
+        "work_permit"
+      ],
+      "required": true
+    },
+    "media_type": {
+      "type": "enumeration",
+      "enum": [
+        "document",
+        "video"
+      ],
+      "required": true
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "document": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "video": {
+      "type": "string"
+    }
+  }
+}
