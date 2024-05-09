@@ -1,0 +1,21 @@
+<%- include('partials/header', { title: 'User Dashboard' }); %>
+
+<main>
+    <% if (isLoggedIn) { %>
+        <h1><%= message %></h1>
+        <h2>Your Profile</h2>
+        <p>First Name: <%= user.firstName %></p>
+        <p>Last Name: <%= user.lastName %></p>
+        <p>Email: <%= user.email %></p>
+        <% } else { %>
+        <p>Please log in to view your dashboard.</p>
+      <% } %>
+
+      <a href="/user/editProfile">Edit Profile</a>
+</main>
+
+<p data-lang-placeholder="about"></p>
+<p data-lang-placeholder="aboutText"></p>
+<script src="/scripts/languageSwitcher.js"></script>
+
+<%- include('partials/footer'); %>

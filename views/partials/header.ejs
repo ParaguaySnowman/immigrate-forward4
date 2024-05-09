@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <!-- to be changed to dynamic language attribute eventually -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width', initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Immigrate Forward</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
     <header>
+        <h1 data-lang-placeholder="immigrate-forward"></h1>
+        
         <nav>
-            <a href="/">Home</a>
-            <a href="/content">Content</a>
-            <a href="/auth/google">Sign In with Google</a>
-        </nav>        
+            <a href="/" id="homeLink" data-lang-placeholder="homeLink"></a>
+            <a href="content.html" id="contentLink" data-lang-placeholder="contentLink"></a>
+            <a href="search.html" id="searchLink" data-lang-placeholder="searchLink"></a>
+            <a href="language.html" id="languageLink" data-lang-placeholder="languageLink"></a>
+            <% if (locals.isLoggedIn) { %>
+                <a href="/logout" id="logoutLink">Logout</a>
+                <a href="/user/myAccount" id="userLink" data-lang-placeholder="userLink"></a>
+            <% } else { %>
+                <a href="/auth/google" id="loginLink">Sign In with Google</a>
+            <% } %>
+
+        </nav>
+    
+        
     </header>

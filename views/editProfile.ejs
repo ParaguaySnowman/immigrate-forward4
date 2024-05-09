@@ -1,0 +1,25 @@
+<%- include('partials/header', { title: 'Home Page' }); %>
+
+<main>
+    <% if (isLoggedIn) { %>
+        <h1>Edit Your Profile</h1>
+        <form action="/user/editProfile" method="POST">
+    
+          <label for="firstName">First Name:</label>
+          <input type="text" id="firstName" name="firstName" value="<%= user.firstName %>"><br><br>
+    
+          <label for="lastName">Last Name:</label>
+          <input type="text" id="lastName" name="lastName" value="<%= user.lastName %>"><br><br>
+    
+          <button type="submit">Save Changes</button>
+        </form>
+      <% } else { %>
+        <p>Please log in to edit your profile.</p>
+      <% } %>
+</main>
+
+<p data-lang-placeholder="about"></p>
+<p data-lang-placeholder="aboutText"></p>
+<script src="/scripts/languageSwitcher.js"></script>
+
+<%- include('partials/footer'); %>

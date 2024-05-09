@@ -1,53 +1,61 @@
 const express = require('express');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const dotenv = require('dotenv');
-
-dotenv.config();
+const flash = require('connect-flash'); 
+require('dotenv').config(); // Load environment variables from .env file
+require('./config/db'); // Initializes MongoDB connection
+require('./config/passport-setup'); // Initialize Passport configuration
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Configure session middleware
+// Session middleware configuration
 app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false
+  secret: process.env.SESSION_SECRET, // Secret key for signing the session ID cookie
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI
+  }),
+  cookie: {
+    secure: false, // Set to true if your website uses HTTPS
+    maxAge: 1000 * 60 * 60 * 24 // Cookie expiry (e.g., 1 day)
+  }
 }));
 
+// Connect-flash middleware
+app.use(flash()); 
+
+// Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Passport Configuration
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: '/auth/google/callback' 
-},
-(accessToken, refreshToken, profile, done) => {
-    // Handle successful authentication (e.g., store the user profile in a database)
-    console.log('User profile:', profile);
-    return done(null, profile);
-}));
+// Body parser middleware
+app.use(express.urlencoded({ extended: true }));
 
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
+// Static files middleware
+app.use(express.static('public'));
 
-// Authentication Routes
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    (req, res) => {
-        res.redirect('/');
-    });
-
+// View engine setup
 app.set('view engine', 'ejs');
-app.set('views', 'views');
 
+// Route-proctection middleware
+const requireRegistration = require('./middleware/requireRegistration'); // Assuming authMiddleware.js is in the same directory
+
+// Routes
+const authRoutes = require('./routes/authRoutes');
 const mainRoutes = require('./routes/mainRoutes');
+const userRoutes = require('./routes/userRoutes');
+app.use('/', authRoutes);
 app.use('/', mainRoutes);
+app.use('/user', requireRegistration, userRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+  });
 
 // Server initialization
-const PORT = 3000; 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));``
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
