@@ -40,6 +40,12 @@ app.use(express.static('public'));
 // View engine setup
 app.set('view engine', 'ejs');
 
+// Custom middleware for checking if user is logged in.
+app.use((req, res, next) => {
+  res.locals.isLoggedIn = req.isAuthenticated();
+  next();
+});
+
 // Route-proctection middleware
 const requireRegistration = require('./middleware/requireRegistration'); // Assuming authMiddleware.js is in the same directory
 
@@ -47,9 +53,10 @@ const requireRegistration = require('./middleware/requireRegistration'); // Assu
 const authRoutes = require('./routes/authRoutes');
 const mainRoutes = require('./routes/mainRoutes');
 const userRoutes = require('./routes/userRoutes');
+app.use('/user', requireRegistration, userRoutes);
 app.use('/', authRoutes);
 app.use('/', mainRoutes);
-app.use('/user', requireRegistration, userRoutes);
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

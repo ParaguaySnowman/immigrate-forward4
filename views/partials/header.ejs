@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!-- to be changed to dynamic language attribute eventually -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,21 +7,16 @@
 </head>
 <body>
     <header>
-        <h1 data-lang-placeholder="immigrate-forward"></h1>
+        <h1>Immigrate Forward</h1>
         
         <nav>
-            <a href="/" id="homeLink" data-lang-placeholder="homeLink"></a>
-            <a href="content.html" id="contentLink" data-lang-placeholder="contentLink"></a>
-            <a href="search.html" id="searchLink" data-lang-placeholder="searchLink"></a>
-            <a href="language.html" id="languageLink" data-lang-placeholder="languageLink"></a>
+            <a href="/" id="homeLink">Home</a>
+            <a href="/content" id="contentLink">Tutorials</a>
             <% if (locals.isLoggedIn) { %>
                 <a href="/logout" id="logoutLink">Logout</a>
-                <a href="/user/myAccount" id="userLink" data-lang-placeholder="userLink"></a>
+                <a href="/user/myAccount" id="userLink">My Account</a>
             <% } else { %>
                 <a href="/auth/google" id="loginLink">Sign In with Google</a>
             <% } %>
-
-        </nav>
-    
-        
+        </nav>     
     </header>
