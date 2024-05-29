@@ -38,14 +38,16 @@
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.card .youtube-embed-container {
-    position: relative;    
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
+/* Add this CSS to your stylesheet (public/css/styles.css) */
+.aspect-ratio-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio (height/width = 9/16 = 0.5625) */
     overflow: hidden;
 }
 
-.card .youtube-embed-container iframe {
+.aspect-ratio-container iframe,
+.aspect-ratio-container img {
     position: absolute;
     top: 0;
     left: 0;
