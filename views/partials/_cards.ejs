@@ -19,14 +19,9 @@
             <% if (item.attributes.thumbnail && item.attributes.document) { %> 
             <% var imageURL = 'http://localhost:1337' + item.attributes.thumbnail.data.attributes.url; %>
             <% var documentURL = 'http://localhost:1337' + item.attributes.document.data.attributes.url; %>
-            <img class="card-img" src="<%= imageURL %>" alt="<%= item.attributes.title %>"> 
+            <img class="card-img" src="<%= imageURL %>" alt="<%= item.attributes.title %>" onclick="window.open('<%= documentURL %>', '_blank')" style="cursor: pointer;"> 
             <% } %>
             <h2><%= item.attributes.title %></h2> 
-            <% if (item.attributes.document) { %> 
-                <button class="view-document-btn" onclick="window.open('<%= documentURL %>', '_blank')">
-                View Document
-                </button>
-            <% } %> 
         </div>
     <% } %> 
     
