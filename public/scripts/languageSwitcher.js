@@ -2,28 +2,42 @@ function loadContent(lang) {
     var content = {
         'en': {
             'about': 'About Us',
+            'asylumLink': 'Asylum',
             'aboutText': 'Information',
+            'citizenshipLink': 'Citizenship',
             'contentLink': 'Immigration Help',
+            'green_cardLink': 'Green Card',
             'homeLink': 'Home',
-            'immigrate-forward': 'Immigrate Forward',
             'languageLink':'Language',
+            'petitionsLink': 'Family Petitions',
+            'titleLink': 'Immigrate Forward',
             'searchLink':'Search',
-            'signInLink': 'Sign In',
+            'signInLink': 'Sign In with Google',
             'signUpLink': 'Register',
-            'userLink': 'My Account'
+            'signOutLink': 'Sign Out',
+            'sponsorhipLink': 'Sponsorship',
+            'userLink': 'My Account',
+            'workPermitLink': 'Work Permit'
             // ... other keys
         },
         'es': {
             'about': 'Sobre Nosotros',
+            'asylumLink': 'Asilo',
             'aboutText': 'Información',
+            'citizenshipLink': 'Ciudadanía',
             'contentLink': 'Apoyo para la inmigración',
+            'green_cardLink': 'Tarjeta Verde',
             'homeLink': 'Pagina de Inicio',
-            'immigrate-forward': 'Inmigrantes Adelante',
             'languageLink':'Idioma',
+            'petitionsLink': 'Petición Familiar',
+            'titleLink': 'Inmigrantes Adelante',
             'searchLink':'Buscar',
-            'signInLink': 'Iniciar Sesión', 
+            'signInLink': 'Iniciar Sesión con Google', 
             'signUpLink': 'Registrarse',
-            'userLink': 'Mi Cuenta'
+            'signOutLink': 'Cerrar Sesión',
+            'sponsorshipLink': 'Patrocinio',
+            'userLink': 'Mi Cuenta',
+            'workPermitLink': 'Permiso de Trabajo'
             // ... other keys
         }
     };

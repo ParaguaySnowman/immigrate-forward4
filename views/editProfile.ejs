@@ -10,6 +10,15 @@
     
           <label for="lastName">Last Name:</label>
           <input type="text" id="lastName" name="lastName" value="<%= user.lastName %>"><br><br>
+
+          <label for="phoneNumber">Phone Number:</label>
+          <input type="text" id="phoneNumber" name="phone[phoneNumber]" value="<%= user.phone.phoneNumber %>"><br><br>
+
+          <label for="optIn">SMS Opt-In:</label>
+          <input type="checkbox" id="optIn" name="smsPreferences[optIn]" <%= user.smsPreferences.optIn ? 'checked' : '' %>><br><br>
+
+          <label for="preferredLanguage">Preferred Language:</label>
+          <input type="text" id="preferredLanguage" name="smsPreferences[preferredLanguage]" value="<%= user.smsPreferences.preferredLanguage %>"><br><br>
     
           <button type="submit">Save Changes</button>
         </form>

@@ -3,6 +3,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const flash = require('connect-flash'); 
+const bodyParser = require('body-parser');
 require('dotenv').config(); // Load environment variables from .env file
 require('./config/db'); // Initializes MongoDB connection
 require('./config/passport-setup'); // Initialize Passport configuration
@@ -45,6 +46,10 @@ app.use((req, res, next) => {
   res.locals.isLoggedIn = req.isAuthenticated();
   next();
 });
+
+// Body-parser middleware for parsing nested objects.
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Route-proctection middleware
 const requireRegistration = require('./middleware/requireRegistration'); // Assuming authMiddleware.js is in the same directory
