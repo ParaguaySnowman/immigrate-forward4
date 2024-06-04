@@ -4,6 +4,7 @@ const ejs = require('ejs');
 const fs = require('fs');
 const path = require('path');
 const contentController = require('../controllers/contentController');
+const requireRegistration = require('../middleware/requireRegistration'); // Import the middleware
 
 // Helper function to render views with layout
 function renderWithLayout(res, viewPath, title, headerType) {
@@ -11,17 +12,19 @@ function renderWithLayout(res, viewPath, title, headerType) {
     res.render('layout', { title, body: viewContent, headerType });
 }
 
-router.get('/content', (req, res) => {
+// Apply requireRegistration middleware to the '/content' route
+router.get('/content', requireRegistration, (req, res) => {
     renderWithLayout(res, path.join(__dirname, '../views/content.ejs'), 'Content', 'content');
 });
 
-// Route for the tutorials view with dynamic category
-router.get('/tutorials/:category', (req, res, next) => {
+// Apply requireRegistration middleware to the '/tutorials/:category' route
+router.get('/tutorials/:category', requireRegistration, (req, res, next) => {
     const { category } = req.params;
     req.headerType = 'content';
     contentController.fetchAndRenderContentByCategory(req, res, next, category);
 });
 
+// Home route does not require registration
 router.get('/', (req, res) => {
     renderWithLayout(res, path.join(__dirname, '../views/index.ejs'), 'Home', 'default');
 });
