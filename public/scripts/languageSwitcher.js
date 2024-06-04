@@ -10,14 +10,14 @@ function loadContent(lang) {
             'green_cardLink': 'Green Card',
             'homeLink': 'Home',
             'homepageContent': 'The main homepage content will go here',
-            'languageLink':'Language',
+            'languageLink':'English/Español',
             'petitionsLink': 'Family Petitions',
             'titleLink': 'Immigrate Forward',
             'searchLink':'Search',
             'signInLink': 'Sign In with Google',
             'signUpLink': 'Register',
             'signOutLink': 'Sign Out',
-            'sponsorhipLink': 'Sponsorship',
+            'sponsorshipLink': 'Sponsorship',
             'userLink': 'My Account',
             'work_permitLink': 'Work Permit'
             // ... other keys
@@ -32,7 +32,7 @@ function loadContent(lang) {
             'green_cardLink': 'Tarjeta Verde',
             'homeLink': 'Pagina de Inicio',
             'homepageContent': 'El contenido de la pagina principal estara aqui',
-            'languageLink':'Idioma',
+            'languageLink':'English/Español',
             'petitionsLink': 'Petición Familiar',
             'titleLink': 'Inmigrantes Adelante',
             'searchLink':'Buscar',
@@ -52,7 +52,25 @@ function loadContent(lang) {
         var key = el.getAttribute('data-lang-placeholder');
         el.textContent = content[lang][key] || content['en'][key];
     });
+
+    // Update the language link text
+    var languageLink = document.getElementById('languageLink');
+    languageLink.textContent = lang === 'es' ? 'English' : 'Español';
 }
 
-var userLang = navigator.language || navigator.userLanguage; 
-loadContent(userLang.startsWith('es') ? 'es' : 'en');
+function toggleLanguage() {
+    var currentLang = localStorage.getItem('lang') || (navigator.language.startsWith('es') ? 'es' : 'en');
+    var newLang = currentLang === 'en' ? 'es' : 'en';
+    localStorage.setItem('lang', newLang);
+    loadContent(newLang);
+}
+
+// Check for stored language preference
+var storedLang = localStorage.getItem('lang');
+var userLang = storedLang || (navigator.language.startsWith('es') ? 'es' : 'en');
+loadContent(userLang);
+
+document.getElementById('languageLink').addEventListener('click', function(event) {
+    event.preventDefault();
+    toggleLanguage();
+});
