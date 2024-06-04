@@ -6,8 +6,10 @@ function loadContent(lang) {
             'aboutText': 'Information',
             'citizenshipLink': 'Citizenship',
             'contentLink': 'Immigration Help',
+            'contentPageBanner': 'Select the topic of immigration help you need from the menu',
             'green_cardLink': 'Green Card',
             'homeLink': 'Home',
+            'homepageContent': 'The main homepage content will go here',
             'languageLink':'Language',
             'petitionsLink': 'Family Petitions',
             'titleLink': 'Immigrate Forward',
@@ -17,7 +19,7 @@ function loadContent(lang) {
             'signOutLink': 'Sign Out',
             'sponsorhipLink': 'Sponsorship',
             'userLink': 'My Account',
-            'workPermitLink': 'Work Permit'
+            'work_permitLink': 'Work Permit'
             // ... other keys
         },
         'es': {
@@ -26,8 +28,10 @@ function loadContent(lang) {
             'aboutText': 'Información',
             'citizenshipLink': 'Ciudadanía',
             'contentLink': 'Apoyo para la inmigración',
+            'contentPageBanner': 'Seleccione el tema de ayuda de inmigración que necesita del menú',
             'green_cardLink': 'Tarjeta Verde',
             'homeLink': 'Pagina de Inicio',
+            'homepageContent': 'El contenido de la pagina principal estara aqui',
             'languageLink':'Idioma',
             'petitionsLink': 'Petición Familiar',
             'titleLink': 'Inmigrantes Adelante',
@@ -37,7 +41,7 @@ function loadContent(lang) {
             'signOutLink': 'Cerrar Sesión',
             'sponsorshipLink': 'Patrocinio',
             'userLink': 'Mi Cuenta',
-            'workPermitLink': 'Permiso de Trabajo'
+            'work_permitLink': 'Permiso de Trabajo'
             // ... other keys
         }
     };
