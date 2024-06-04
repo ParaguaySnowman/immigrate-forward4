@@ -9,7 +9,7 @@ const userController = require('../controllers/user.controller.js');
 // Helper function to render views with layout
 function renderWithLayout(res, viewPath, title, additionalData = {}) {
     const viewContent = ejs.render(fs.readFileSync(viewPath, 'utf8'), additionalData);
-    res.render('layout', { title, body: viewContent });
+    res.render('layout', { title, body: viewContent, headerType: 'default' });
 }
 
 router.get('/auth/google',
@@ -39,7 +39,7 @@ router.get('/auth/google/callback',
 
 router.get('/register', (req, res) => {
     const isLoggedIn = req.isAuthenticated ? req.isAuthenticated() : false;
-    renderWithLayout(res, path.join(__dirname, '../views/register.ejs'), 'Registration', { isLoggedIn, message: 'registration!' });
+    renderWithLayout(res, path.join(__dirname, '../views/register.ejs'), 'Registration', { isLoggedIn });
 });
 
 router.post('/complete-registration', userController.completeRegistration);
