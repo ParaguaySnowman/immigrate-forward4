@@ -62,10 +62,6 @@ function loadContent(lang) {
         var key = el.getAttribute('data-lang-placeholder');
         el.textContent = content[lang][key] || content['en'][key];
     });
-
-    // Update the language link text
-    var languageLink = document.getElementById('languageLink');
-    languageLink.textContent = lang === 'es' ? 'English' : 'Español';
 }
 
 function toggleLanguage() {
