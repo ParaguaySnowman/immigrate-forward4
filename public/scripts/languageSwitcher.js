@@ -1,3 +1,5 @@
+//public/scripts/languageSwitcher.js
+
 function loadContent(lang) {
     var content = {
         'en': {

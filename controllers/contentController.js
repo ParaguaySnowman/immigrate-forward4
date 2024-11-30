@@ -1,3 +1,5 @@
+//controllers/contentController.js
+
 const axios = require('axios');
 
 async function fetchAndRenderContentByCategory(req, res, next, category) {
