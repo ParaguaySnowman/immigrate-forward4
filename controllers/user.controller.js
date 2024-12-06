@@ -1,3 +1,5 @@
+//controllers/user.controller.js
+
 // Import Model
 const User = require('../models/user.model');
 
