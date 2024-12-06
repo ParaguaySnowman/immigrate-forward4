@@ -1,21 +1,6 @@
 <%# views/index.ejs %>
 
 <br>
-<div id="contact-us">
-    <section class="contactForm">
-        <form id="contactUsForm" name="contactUs">
-            <div class="userContactEmail">
-              <label for="email" data-lang-placeholder="email"></label>
-              <input name="email" required /><br>
-            </div>
-            <div class="message">
-              <label for="message" data-lang-placeholder="message"></label>
-              <textarea data-lang-placeholder="message-prompt" id="message" name="message" rows="4" cols="50" required></textarea><br><br>
-            </div>
-            <button id="submitBtn" type="submit" data-lang-placeholder="send"></button>
-        </form>
-    </section>
-</div>
 
 <div id="homepage-content">
     <p data-lang-placeholder="homepageContent"></p>
@@ -26,10 +11,3 @@
     <br>
     <p data-lang-placeholder="aboutText"></p>
 </div>
-
-<!-- production recaptcha key -->
-<!-- <div class="g-recaptcha" data-sitekey="6LdgwZEqAAAAAKm4VATB-f2k8jTGbBEcWhEOo7xZ"></div> -->
-
-<!-- testing recaptcha key -->
-<div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
-<script src="/scripts/contactForm.js"></script>
