@@ -26,8 +26,30 @@
     <footer>
         <p>&copy; 2024 My Website</p>
     </footer>
+    <script>
+        function initializeGAPI() {
+            gapi.load('auth2', function () {
+                gapi.auth2.init({
+                    client_id: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
+                    scope: 'profile email'
+                }).then(function () {
+                    console.log('Google API initialized successfully.');
+                }).catch(function (error) {
+                    console.error('Error initializing Google API:', error);
+                });
+            });
+        }
 
+        window.onload = function () {
+            if (typeof gapi !== 'undefined') {
+                initializeGAPI();
+            } else {
+                console.error('Google API failed to load.');
+            }
+        };
+    </script>
     <script src="/scripts/languageSwitcher.js"></script>
-
 </body>
 </html>
+
+
