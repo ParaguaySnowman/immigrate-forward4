@@ -13,6 +13,16 @@ require('./config/passport-setup'); // Initialize Passport configuration
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// HTTPS middleware to enforce secure connections in production
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      return res.redirect(`https://${req.headers.host}${req.url}`);
+    }
+    next();
+  })
+}
+
 // Session middleware configuration
 app.use(session({
   secret: process.env.SESSION_SECRET, // Secret key for signing the session ID cookie
