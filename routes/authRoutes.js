@@ -25,13 +25,12 @@ router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/' }),
     async (req, res) => {
         try {
-            // Check if registration was previously completed
+            // After authentication, redirect to the home page or complete registration
             if (req.user.isRegistrationComplete) {
                 req.session.isLoggedIn = true; 
-                return res.redirect('/');
+                return res.redirect('/');  // Redirect to the home page
             }
-            // Redirect the user to the registration page
-            return res.redirect('/register');
+            return res.redirect('/register');  // Redirect to the registration page if incomplete
         } catch (error) {
             console.error('Error in authentication callback:', error);
             return res.status(500).send('Internal Server Error');
