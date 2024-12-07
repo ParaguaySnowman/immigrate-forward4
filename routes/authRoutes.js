@@ -1,55 +1,58 @@
-//routes/authRoutes.js
-
+const { OAuth2Client } = require('google-auth-library');
+const User = require('../models/user.model'); // Your user model
 const express = require('express');
-const passport = require('passport');
 const router = express.Router();
-const ejs = require('ejs');
-const fs = require('fs');
-const path = require('path');
-const userController = require('../controllers/user.controller.js');
 
-// Helper function to render views with layout
-function renderWithLayout(res, viewPath, title, additionalData = {}) {
-    const viewContent = ejs.render(fs.readFileSync(viewPath, 'utf8'), additionalData);
-    res.render('layout', { title, body: viewContent, headerType: 'default' });
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+async function verifyToken(idToken) {
+    const ticket = await client.verifyIdToken({
+        idToken: idToken,
+        audience: process.env.GOOGLE_CLIENT_ID, // Must match your Google Client ID
+    });
+    return ticket.getPayload(); // Contains user details
 }
 
-router.get('/auth/google',
-    passport.authenticate('google', {
-        scope: ['profile', 'email'],
-        prompt: 'select_account'
-    })
-);
+router.post('/auth/google/verify', async (req, res) => {
+    try {
+        const { token } = req.body;
 
-router.get('/auth/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/' }),
-    async (req, res) => {
-        try {
-            // After authentication, redirect to the home page or complete registration
-            if (req.user.isRegistrationComplete) {
-                req.session.isLoggedIn = true; 
-                return res.redirect('/');  // Redirect to the home page
-            }
-            return res.redirect('/register');  // Redirect to the registration page if incomplete
-        } catch (error) {
-            console.error('Error in authentication callback:', error);
-            return res.status(500).send('Internal Server Error');
+        // Verify the token with Google
+        const ticket = await client.verifyIdToken({
+            idToken: token,
+            audience: process.env.GOOGLE_CLIENT_ID, // Match your Google Client ID
+        });
+
+        const payload = ticket.getPayload(); // Extract user info from the token
+
+        // Check if the user exists in your database
+        let user = await User.findOne({ googleId: payload.sub });
+        if (!user) {
+            // Create a new user if not found
+            user = new User({
+                googleId: payload.sub,
+                firstName: payload.given_name,
+                lastName: payload.family_name,
+                email: payload.email,
+                isRegistrationComplete: false,
+            });
+            await user.save();
         }
+
+        // Store user info in the session
+        req.session.user = {
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+        };
+
+        // Send success response
+        res.status(200).json({ success: true, user: req.session.user });
+
+    } catch (error) {
+        console.error('Token verification failed:', error);
+        res.status(401).json({ success: false, message: 'Invalid token' });
     }
-);
-
-router.get('/register', (req, res) => {
-    const isLoggedIn = req.isAuthenticated ? req.isAuthenticated() : false;
-    renderWithLayout(res, path.join(__dirname, '../views/register.ejs'), 'Registration', { isLoggedIn });
-});
-
-router.post('/complete-registration', userController.completeRegistration);
-
-router.get('/logout', (req, res, next) => {
-    req.logout((err) => {
-        if (err) { return next(err); }
-        res.redirect('/');
-    });
 });
 
 module.exports = router;

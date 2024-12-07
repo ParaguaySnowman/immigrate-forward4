@@ -25,15 +25,15 @@ if (process.env.NODE_ENV === 'production') {
 
 // Session middleware configuration
 app.use(session({
-  secret: process.env.SESSION_SECRET, // Secret key for signing the session ID cookie
+  secret: process.env.SESSION_SECRET, // Keep this secret in the environment variables
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI
+    mongoUrl: process.env.MONGODB_URI // Use your existing MongoDB URI
   }),
   cookie: {
-    secure: false, // Set to true if your website uses HTTPS
-    maxAge: 1000 * 60 * 60 * 24 // Cookie expiry (e.g., 1 day)
+    secure: process.env.NODE_ENV === 'production', // Secure cookies in production
+    maxAge: 1000 * 60 * 60 * 24, // 1 day (adjust as needed)
   }
 }));
 
