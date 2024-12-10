@@ -7,13 +7,11 @@
         <a href="/" id="homeLink" data-lang-placeholder="homeLink"></a>
         <a href="/content" id="contentLink" data-lang-placeholder="contentLink"></a>
         <a href="#" id="languageLink" data-lang-placeholder="languageLink"></a>
-        <% if (!isLoggedIn) { %>
-            <!-- Show Google Sign-In button -->
-            <div id="my-signin-button"></div>
+        <% if (locals.isLoggedIn) { %>
+            <a href="/user/myAccount" id="userLink" data-lang-placeholder="userLink"></a>
+            <a href="/logout" id="signOutLink" data-lang-placeholder="signOutLink"></a>
         <% } else { %>
-            <!-- Show user dashboard or logout link -->
-            <a href="/user/myAccount">My Account</a>
-            <a href="/logout">Logout</a>
-        <% } %>        
+            <a href="/auth/google" id="loginLink" data-lang-placeholder="signInLink"></a>
+        <% } %>
     </nav>     
 </header>
