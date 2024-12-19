@@ -1,4 +1,5 @@
 //middleware/requireRegistration.js
+//(immigrate-forward4)
 
 function requireRegistration(req, res, next) {
     if (req.user && req.user.isRegistrationComplete) {
