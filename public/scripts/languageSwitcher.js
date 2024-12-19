@@ -1,4 +1,5 @@
 //public/scripts/languageSwitcher.js
+//(immigrate-forward4)
 
 function loadContent(lang) {
     var content = {
