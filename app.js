@@ -15,15 +15,15 @@ const PORT = process.env.PORT || 3000;
 
 // Session middleware configuration
 app.use(session({
-  secret: process.env.SESSION_SECRET, // Keep this secret in the environment variables
+  secret: process.env.SESSION_SECRET, // Secret key for signing the session ID cookie
   resave: false,
   saveUninitialized: true,
   store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI // Use your existing MongoDB URI
+    mongoUrl: process.env.MONGODB_URI
   }),
   cookie: {
-    secure: process.env.NODE_ENV === 'production', // Secure cookies in production
-    maxAge: 1000 * 60 * 60 * 24, // 1 day (adjust as needed)
+    secure: false, // Set to true if your website uses HTTPS
+    maxAge: 1000 * 60 * 60 * 24 // Cookie expiry (e.g., 1 day)
   }
 }));
 

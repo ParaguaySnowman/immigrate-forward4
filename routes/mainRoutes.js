@@ -7,12 +7,10 @@ const fs = require('fs');
 const path = require('path');
 const contentController = require('../controllers/contentController');
 const requireRegistration = require('../middleware/requireRegistration'); // Import the middleware
-const nodemailer = require('nodemailer');
-const axios = require('axios'); 
 
 // Helper function to render views with layout
-function renderWithLayout(res, viewPath, title, headerType, additionalData = {}) {
-    const viewContent = ejs.render(fs.readFileSync(viewPath, 'utf8'), { ...additionalData });
+function renderWithLayout(res, viewPath, title, headerType) {
+    const viewContent = ejs.render(fs.readFileSync(viewPath, 'utf8'));
     res.render('layout', { title, body: viewContent, headerType });
 }
 
